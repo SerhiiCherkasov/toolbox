@@ -13,7 +13,7 @@ import {
   TriangleAlertIcon,
 } from "lucide-react";
 
-type UZDProps = {};
+type UZDProps = object;
 
 const UZD = ({}: UZDProps) => {
   return (

@@ -1,4 +1,4 @@
-import { MagicWandIcon, CheckIcon, Pencil1Icon } from "@radix-ui/react-icons";
+import { CheckIcon, Pencil1Icon } from "@radix-ui/react-icons";
 import { useEffect, useRef, useState } from "react";
 import { Input } from "src/components/Input";
 import { SmallText } from "src/components/typography";
@@ -25,8 +25,10 @@ export const EditableLabel = ({
   }, [editLabel]);
 
   useEffect(() => {
-    onLabelEdit && onLabelEdit(currentLabel || "");
-  }, [currentLabel]);
+    if (onLabelEdit) {
+      onLabelEdit(currentLabel || "");
+    }
+  }, [currentLabel, onLabelEdit]);
 
   useEffect(() => {
     setCurrentLabel(label);

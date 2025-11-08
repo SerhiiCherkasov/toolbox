@@ -11,7 +11,7 @@ import { BaseDialog } from "src/components/Dialog/BaseDialog";
 import { Input } from "src/components/Input";
 import { BaseSelect } from "src/components/Select/BaseSelect";
 
-type CalculatorRendererProps = {};
+type CalculatorRendererProps = object;
 
 export type OperationInstance = {
   id: number;

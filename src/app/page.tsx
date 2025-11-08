@@ -1,12 +1,7 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
     <div className="">
-      <main className="">
-        Page placeholder
-      </main>
-      
+      <main className="">Page placeholder</main>
     </div>
   );
 }
