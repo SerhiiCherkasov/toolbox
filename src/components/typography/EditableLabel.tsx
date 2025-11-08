@@ -28,7 +28,7 @@ export const EditableLabel = ({
     if (onLabelEdit) {
       onLabelEdit(currentLabel || "");
     }
-  }, [currentLabel, onLabelEdit]);
+  }, [currentLabel]);
 
   useEffect(() => {
     setCurrentLabel(label);
