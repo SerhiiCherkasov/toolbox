@@ -1,8 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background-hight: #ffffff;
+  --background: #f1f1f1;
+  --background-low: #ececec;
+  --foreground-low: #2a2a2a;
   --foreground: #171717;
+  --foreground-hight: #000000;
+
+  --primary-light: #3f1e85;
+  --primary-color: #2c1166;
+  --primary-dark: #200d48;
+
+  --secondary-color: #8ee2e1;
+  --secondary-light: #b6fcfb;
+  --secondary-dark: #6cbdbc;
+
+  --text-main-color: #232323;
+  --text-hight-color: #484848;
+  --text-low-color: #101010;
+
+  --shadow-effect: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 @theme inline {
@@ -14,8 +32,14 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --background-hight: #000000;
     --background: #0a0a0a;
+    --background-low: #181818;
+    --foreground-low: #d8d8d8;
     --foreground: #ededed;
+    --foreground-hight: #ffffff;
+
+    --shadow-effect: 0 0 12px rgba(255, 255, 255, 0.4);
   }
 }
 
@@ -23,4 +47,21 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  font-size: 48px;
+  line-height: 56px;
+  color: var(--foreground-low);
+}
+
+.hide-number-input-arrows::-webkit-inner-spin-button,
+.hide-number-input-arrows::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.hide-number-input-arrows {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
