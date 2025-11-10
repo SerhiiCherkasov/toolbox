@@ -7,7 +7,7 @@ export const Sidebar = (props: SidebarProps) => {
     <>
       <aside className="fixed top-0 left-0 h-[100vh] w-0 p-0 bg-[var(--background-low)] "></aside>
       {/* placeholder */}
-      <div className="relative top-0 left-0 h-[100vh] w-48 " />
+      {/* <div className="relative top-0 left-0 h-[100vh] w-48 " /> */}
     </>
   );
 };

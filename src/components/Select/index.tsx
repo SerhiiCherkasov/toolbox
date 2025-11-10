@@ -2,6 +2,8 @@ import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { cn } from "src/utils";
 
+export { BaseSelect } from "./BaseSelect";
+export { IconSelect } from "./IconSelect";
 
 export const Select = SelectPrimitive.Root;
 
@@ -13,10 +15,16 @@ export const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
 >(({ className, ...props }, ref) => (
-  <SelectPrimitive.Trigger ref={ref} className={cn('w-full flex items-center justify-between gap-4 bg-[var(--background-low)] px-4 py-1.5 rounded-lg border border-[var(--foreground-low)]',className)} {...props} />
+  <SelectPrimitive.Trigger
+    ref={ref}
+    className={cn(
+      "w-full flex items-center justify-between gap-4 bg-[var(--background-low)] px-4 py-1.5 rounded-lg border border-[var(--foreground-low)]",
+      className
+    )}
+    {...props}
+  />
 ));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
-
 
 export const SelectIcon = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Icon>,
@@ -26,12 +34,18 @@ export const SelectIcon = React.forwardRef<
 ));
 SelectIcon.displayName = SelectPrimitive.Icon.displayName;
 
-
 export const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
 >(({ className, ...props }, ref) => (
-  <SelectPrimitive.Content ref={ref} className={cn('bg-[var(--background)] rounded-lg  shadow-[var(--shadow-effect)]', className)} {...props} />
+  <SelectPrimitive.Content
+    ref={ref}
+    className={cn(
+      "bg-[var(--background)] rounded-lg  shadow-[var(--shadow-effect)]",
+      className
+    )}
+    {...props}
+  />
 ));
 SelectContent.displayName = SelectPrimitive.Content.displayName;
 
@@ -39,7 +53,11 @@ export const ScrollUpButton = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.ScrollUpButton>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton>
 >(({ className, ...props }, ref) => (
-  <SelectPrimitive.ScrollUpButton ref={ref} className={cn(className)} {...props} />
+  <SelectPrimitive.ScrollUpButton
+    ref={ref}
+    className={cn(className)}
+    {...props}
+  />
 ));
 ScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
 
@@ -71,7 +89,11 @@ export const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
 >(({ className, ...props }, ref) => (
-  <SelectPrimitive.Item ref={ref} className={cn('px-4 py-2 hover:bg-[var(--background-low)]', className)} {...props} />
+  <SelectPrimitive.Item
+    ref={ref}
+    className={cn("px-4 py-2 hover:bg-[var(--background-low)]", className)}
+    {...props}
+  />
 ));
 SelectItem.displayName = SelectPrimitive.Item.displayName;
 
@@ -95,7 +117,11 @@ export const SelectItemIndicator = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.ItemIndicator>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.ItemIndicator>
 >(({ className, ...props }, ref) => (
-  <SelectPrimitive.ItemIndicator ref={ref} className={cn(className)} {...props} />
+  <SelectPrimitive.ItemIndicator
+    ref={ref}
+    className={cn(className)}
+    {...props}
+  />
 ));
 SelectItemIndicator.displayName = SelectPrimitive.ItemIndicator.displayName;
 
@@ -103,6 +129,11 @@ export const SelectScrollDownButton = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.ScrollDownButton>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton>
 >(({ className, ...props }, ref) => (
-  <SelectPrimitive.ScrollDownButton ref={ref} className={cn(className)} {...props} />
+  <SelectPrimitive.ScrollDownButton
+    ref={ref}
+    className={cn(className)}
+    {...props}
+  />
 ));
-SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName;
+SelectScrollDownButton.displayName =
+  SelectPrimitive.ScrollDownButton.displayName;

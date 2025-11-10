@@ -8,9 +8,9 @@
   --foreground: #171717;
   --foreground-hight: #000000;
 
-  --primary-light: #3f1e85;
-  --primary-color: #2c1166;
-  --primary-dark: #200d48;
+  --primary-light: #0b7b41;
+  --primary-color: #0a4b2c;
+  --primary-dark: #0a2b1d;
 
   --secondary-color: #8ee2e1;
   --secondary-light: #b6fcfb;
@@ -32,9 +32,9 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background-hight: #000000;
-    --background: #0a0a0a;
-    --background-low: #181818;
+    --background-hight: #171716;
+    --background: #20201f;
+    --background-low: #383736;
     --foreground-low: #d8d8d8;
     --foreground: #ededed;
     --foreground-hight: #ffffff;

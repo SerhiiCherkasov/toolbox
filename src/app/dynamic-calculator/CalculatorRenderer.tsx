@@ -9,7 +9,7 @@ import { getJsonFromStore, saveAsJsonToStore } from "src/utils/localstore";
 import { CALC_STORE_SEQUENCE_KEY } from "../settings";
 import { BaseDialog } from "src/components/Dialog/BaseDialog";
 import { Input } from "src/components/Input";
-import { BaseSelect } from "src/components/Select/BaseSelect";
+import { BaseSelect } from "src/components/Select";
 
 type CalculatorRendererProps = object;
 
