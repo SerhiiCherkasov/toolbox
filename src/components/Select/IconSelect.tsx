@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import {
   Select,
   SelectContent,
-  SelectIcon,
   SelectItem,
   SelectItemIndicator,
   SelectItemText,

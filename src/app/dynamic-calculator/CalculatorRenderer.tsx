@@ -78,8 +78,6 @@ export const CalculatorRenderer = ({}: CalculatorRendererProps) => {
     setSequenceName("");
   };
 
-  
-
   const onLoadSequence = (name: string) => {
     setLoadedSequenceName(name);
     setOperations(storedOperations[name].operations || []);
@@ -112,6 +110,7 @@ export const CalculatorRenderer = ({}: CalculatorRendererProps) => {
       {!!Object.keys(storedOperations).length && (
         <>
           <BaseSelect
+            label="Saved sequences"
             value={loadedSequenceName}
             setValue={(value?: string) => onLoadSequence(value || "")}
             options={Object.keys(storedOperations).map((key) => ({
