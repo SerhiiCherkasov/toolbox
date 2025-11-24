@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "src/components/Button";
-import { OperationCard, operationList, OperationType } from "./OperationCard";
-import { NumberInput } from "src/components/Input/NumberInput";
+import { operationList, OperationType } from "./OperationCard";
 import { Divider } from "src/components/Divider";
 import { getJsonFromStore, saveAsJsonToStore } from "src/utils/localstore";
 import { CALC_STORE_SEQUENCE_KEY } from "../settings";
 import { BaseDialog } from "src/components/Dialog/BaseDialog";
 import { Input } from "src/components/Input";
 import { BaseSelect } from "src/components/Select";
+import { OperationRenderer } from "./OperationRenderer";
 
 type CalculatorRendererProps = object;
 
@@ -36,33 +36,6 @@ export const CalculatorRenderer = ({}: CalculatorRendererProps) => {
   const [output, setOutput] = useState(0);
   const [sequenceName, setSequenceName] = useState("");
   const [loadedSequenceName, setLoadedSequenceName] = useState("");
-
-  const onOperationChange = (
-    id: number,
-    type: OperationType,
-    operand: number,
-    label?: string
-  ) => {
-    setOperations((previous) =>
-      previous.map((operation) => {
-        if (operation.id === id) {
-          return { id, type, operand, label };
-        }
-        return operation;
-      })
-    );
-  };
-
-  const onRemoveOperation = (id: number) => {
-    setOperations((previous) => previous.filter((op) => op.id !== id));
-  };
-
-  const onAddOperation = () => {
-    setOperations((previous) => [
-      ...previous,
-      { id: Date.now(), type: "pass", operand: 0 },
-    ]);
-  };
 
   const onSaveSequence = () => {
     const storedSequences = getJsonFromStore(CALC_STORE_SEQUENCE_KEY) || {};
@@ -121,29 +94,19 @@ export const CalculatorRenderer = ({}: CalculatorRendererProps) => {
           <Divider />
         </>
       )}
-      <NumberInput
-        editableLabel={true}
-        value={input}
-        onChange={(e) => setInput(+e.target.value)}
-        label={inputLabel}
-        onLabelEdit={setInputLabel}
+
+      <OperationRenderer
+        operations={operations}
+        setOperations={setOperations}
+        setOutput={setOutput}
+        initialInput={input}
+        initialInputLabel={inputLabel}
       />
-      {operations.map((operation, index) => (
-        <OperationCard
-          key={operation.id}
-          onChange={onOperationChange}
-          onRemove={onRemoveOperation}
-          label={`operation #${index + 1}`} // initial default value
-          {...operation}
-        />
-      ))}
+
       <Divider />
       {output}
       <Divider />
       <div className="flex gap-4">
-        <Button onClick={onAddOperation} disabled={!input}>
-          Add operation
-        </Button>
         <BaseDialog
           trigger={
             <Button

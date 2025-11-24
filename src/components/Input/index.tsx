@@ -21,6 +21,7 @@ export const Input = forwardRef<HTMLInputElement, inputProps>(
             label={label}
             onLabelEdit={onLabelEdit}
             editableLabel={editableLabel}
+            className="max-w-[180px] truncate cursor-default"
           />
         )}
         <div

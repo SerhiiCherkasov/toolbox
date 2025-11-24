@@ -20,6 +20,9 @@
   --text-hight-color: #484848;
   --text-low-color: #101010;
 
+  --tooltip-background: #000000;
+  --tooltip-foreground: #ffffff;
+
   --shadow-effect: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -38,6 +41,9 @@
     --foreground-low: #d8d8d8;
     --foreground: #ededed;
     --foreground-hight: #ffffff;
+
+    --tooltip-background: #ffffff;
+    --tooltip-foreground: #000000;
 
     --shadow-effect: 0 0 12px rgba(255, 255, 255, 0.4);
   }
