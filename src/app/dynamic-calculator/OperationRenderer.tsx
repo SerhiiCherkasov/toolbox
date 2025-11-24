@@ -1,14 +1,16 @@
 "use client";
 
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { Button } from "src/components/Button";
 import { OperationCard, operationList, OperationType } from "./OperationCard";
 import { NumberInput } from "src/components/Input/NumberInput";
 
 type OperationRendererProps = {
   setOutput: Dispatch<number>;
-  initialInput?: number;
-  initialInputLabel?: string;
+  input?: number;
+  setInput: Dispatch<SetStateAction<number>>;
+  inputLabel?: string;
+  setInputLabel: Dispatch<SetStateAction<string>>;
   operations: OperationInstance[];
   setOperations: Dispatch<SetStateAction<OperationInstance[]>>;
 };
@@ -22,15 +24,14 @@ export type OperationInstance = {
 
 export const OperationRenderer = ({
   setOutput,
-  initialInput,
-  initialInputLabel,
+  input = 0,
+  setInput,
+  inputLabel,
+  setInputLabel,
   operations = [],
   setOperations,
 }: OperationRendererProps) => {
-  const [input, setInput] = useState<number>(initialInput || 0);
-  const [inputLabel, setInputLabel] = useState<string>(
-    initialInputLabel || "Input"
-  );
+  
 
   const onOperationChange = (
     id: number,
@@ -59,13 +60,6 @@ export const OperationRenderer = ({
     ]);
   };
 
-  useEffect(() => {
-    setInput(initialInput || 0);
-  }, [initialInput]);
-
-  useEffect(() => {
-    setInputLabel(initialInputLabel || "Input");
-  }, [initialInputLabel]);
 
   useEffect(() => {
     const result = operations.reduce((acc, operation) => {

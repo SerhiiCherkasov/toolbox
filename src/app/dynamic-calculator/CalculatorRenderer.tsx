@@ -99,8 +99,10 @@ export const CalculatorRenderer = ({}: CalculatorRendererProps) => {
         operations={operations}
         setOperations={setOperations}
         setOutput={setOutput}
-        initialInput={input}
-        initialInputLabel={inputLabel}
+        input={input}
+        setInput={setInput}
+        inputLabel={inputLabel}
+        setInputLabel={setInputLabel}
       />
 
       <Divider />
