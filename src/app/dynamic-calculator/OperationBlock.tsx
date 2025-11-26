@@ -14,7 +14,7 @@ export const OperationBlock = (props: OperationBlockProps) => {
       {props.treeType === "upper" ? (
         <>
           <OperationCard {...props} operand={output} />
-          <div className="">
+          <div className="animate-fade-right animate-duration-300 animate-ease-linear transition-width duration-300 ease-in-out">
             <OperationTree {...props} setOutput={setOutput} />
           </div>
         </>

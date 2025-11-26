@@ -79,7 +79,7 @@ export const OperationRenderer = ({
   }, [input, operations]);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="animate-fade-right animate-duration-300 animate-ease-in-out flex flex-col gap-4">
       <NumberInput
         editableLabel={true}
         value={input}

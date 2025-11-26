@@ -40,8 +40,7 @@ export const SelectContent = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Content
     ref={ref}
-    className={cn(
-      "bg-[var(--background)] rounded-lg  shadow-[var(--shadow-effect)]",
+    className={cn("animate-fade animate-duration-200 animate-ease-linear bg-[var(--background)] rounded-lg  shadow-[var(--shadow-effect)]",
       className
     )}
     {...props}
