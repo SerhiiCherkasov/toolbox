@@ -7,17 +7,35 @@ export const NumberInput = ({ onChange, ...rest }: inputProps) => {
     const value = event.target.value;
     if (!value) {
       event.target.value = "0";
-      // onChange && onChange(event);
     }
     if (isNumber(value)) {
       const trimmed = value.replace(/^(0(?=\d)|0$)+/, "");
       event.target.value = trimmed;
-      // onChange && onChange(event);
     }
     if (onChange) {
-        onChange(event);
-      }
+      onChange(event);
+    }
   };
 
-  return <Input {...rest} type="number" onChange={safeOnChange} />;
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (event.target.value === "0") {
+      event.target.value = "";
+    }
+  };
+
+  const handleOnBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (!event.target.value) {
+      event.target.value = "0";
+    }
+  };
+
+  return (
+    <Input
+      {...rest}
+      type="number"
+      onChange={safeOnChange}
+      onFocus={handleFocus}
+      onBlur={handleOnBlur}
+    />
+  );
 };

@@ -2,23 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "src/components/Button";
-import { operationList, OperationType } from "./OperationCard";
+import { OperationType } from "./OperationCard";
 import { Divider } from "src/components/Divider";
 import { getJsonFromStore, saveAsJsonToStore } from "src/utils/localstore";
 import { CALC_STORE_SEQUENCE_KEY } from "../settings";
 import { BaseDialog } from "src/components/Dialog/BaseDialog";
 import { Input } from "src/components/Input";
 import { BaseSelect } from "src/components/Select";
-import { OperationRenderer } from "./OperationRenderer";
+import { OperationInstance, OperationRenderer } from "./OperationRenderer";
 
 type CalculatorRendererProps = object;
-
-export type OperationInstance = {
-  id: number;
-  type: OperationType;
-  operand: number;
-  label?: string;
-};
 
 export type StoredOperationSequence = {
   inputLabel?: string;
@@ -57,21 +50,6 @@ export const CalculatorRenderer = ({}: CalculatorRendererProps) => {
     setInput(storedOperations[name].input || 0);
     setInputLabel(storedOperations[name].inputLabel || "Input");
   };
-
-  useEffect(() => {
-    const result = operations.reduce((acc, operation) => {
-      const opFunction = operationList.find(
-        (op) => op.type === operation.type
-      )?.function;
-
-      if (opFunction && operation.operand) {
-        return opFunction(acc, operation.operand);
-      }
-
-      return acc;
-    }, input);
-    setOutput(result);
-  }, [input, operations]);
 
   useEffect(() => {
     const storedSequences = getJsonFromStore(CALC_STORE_SEQUENCE_KEY) || {};

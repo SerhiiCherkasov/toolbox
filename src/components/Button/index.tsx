@@ -6,7 +6,7 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: ButtonSize;
 };
 
-export type ButtonVariant = "base" | "outlined";
+export type ButtonVariant = "base" | "outlined" | "warning";
 
 export type ButtonSize = "full" | "partial" | "fit";
 
@@ -14,6 +14,7 @@ const variants: Record<ButtonVariant, string> = {
   base: "bg-[var(--primary-color)] text-white",
   outlined:
     "bg-transparent border border-[var(--foreground-low)] text-[var(--foreground-hight)]",
+  warning: "bg-[var(--error-color)] text-white",
 };
 
 const sizes: Record<ButtonSize, string> = {

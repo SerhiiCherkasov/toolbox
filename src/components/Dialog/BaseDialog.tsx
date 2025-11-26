@@ -9,9 +9,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from ".";
-import { Button } from "../Button";
+import { Button, ButtonVariant } from "src/components/Button";
 import { DialogProps } from "@radix-ui/react-dialog";
-import { Divider } from "../Divider";
+import { Divider } from "src/components/Divider";
 
 type BaseDialogProps = DialogProps & {
   trigger: ReactNode;
@@ -21,6 +21,7 @@ type BaseDialogProps = DialogProps & {
   action?: () => void;
   actionName?: string;
   actionDisabled?: boolean;
+  actionButtonVariant?: ButtonVariant;
   hideControls?: boolean;
 };
 
@@ -32,6 +33,7 @@ export const BaseDialog = ({
   actionName,
   children,
   actionDisabled,
+  actionButtonVariant,
   hideControls,
   ...rest
 }: BaseDialogProps) => {
@@ -54,6 +56,7 @@ export const BaseDialog = ({
                       onClick={action}
                       size="partial"
                       disabled={actionDisabled}
+                      variant={actionButtonVariant}
                     >
                       {actionName || "Ok"}
                     </Button>

@@ -2,8 +2,9 @@
 
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { Button } from "src/components/Button";
-import { OperationCard, operationList, OperationType } from "./OperationCard";
+import { operationList, OperationType } from "./OperationCard";
 import { NumberInput } from "src/components/Input/NumberInput";
+import { OperationBlock, TreeType } from "./OperationBlock";
 
 type OperationRendererProps = {
   setOutput: Dispatch<number>;
@@ -20,6 +21,10 @@ export type OperationInstance = {
   type: OperationType;
   operand: number;
   label?: string;
+  treeType?: TreeType;
+  treeContent?: OperationInstance[];
+  treeInput?: number;
+  treeLabel?: string;
 };
 
 export const OperationRenderer = ({
@@ -31,18 +36,15 @@ export const OperationRenderer = ({
   operations = [],
   setOperations,
 }: OperationRendererProps) => {
-  
-
   const onOperationChange = (
-    id: number,
-    type: OperationType,
-    operand: number,
-    label?: string
-  ) => {
+    newInstance: OperationInstance) => {
+      console.log('onOperationChange ', newInstance);
+      
     setOperations((previous: OperationInstance[]) =>
       previous.map((operation) => {
-        if (operation.id === id) {
-          return { id, type, operand, label };
+        if (operation.id === newInstance.id) {
+          const {id, label, operand, treeContent, treeType, treeInput, type} = newInstance;
+          return { id, label, operand, treeContent, treeType, treeInput, type };
         }
         return operation;
       })
@@ -60,19 +62,19 @@ export const OperationRenderer = ({
     ]);
   };
 
-
   useEffect(() => {
     const result = operations.reduce((acc, operation) => {
       const opFunction = operationList.find(
         (op) => op.type === operation.type
       )?.function;
 
-      if (opFunction && operation.operand) {
+      if (opFunction) {
         return opFunction(acc, operation.operand);
       }
 
       return acc;
     }, input);
+
     setOutput(result);
   }, [input, operations]);
 
@@ -86,7 +88,7 @@ export const OperationRenderer = ({
         onLabelEdit={setInputLabel}
       />
       {operations.map((operation, index) => (
-        <OperationCard
+        <OperationBlock
           key={operation.id}
           onChange={onOperationChange}
           onRemove={onRemoveOperation}

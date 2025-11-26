@@ -8,9 +8,10 @@
   --foreground: #171717;
   --foreground-hight: #000000;
 
-  --primary-light: #0b7b41;
-  --primary-color: #0a4b2c;
-  --primary-dark: #0a2b1d;
+  --primary-light: #26965c;
+  --primary-color: #226b48;
+  --primary-dark: #204737;
+  
 
   --secondary-color: #8ee2e1;
   --secondary-light: #b6fcfb;
@@ -19,6 +20,10 @@
   --text-main-color: #232323;
   --text-hight-color: #484848;
   --text-low-color: #101010;
+
+  --error-color: #e03e2f;
+  --error-light: #ff6b5a;
+  --error-dark: #b22a1f;
 
   --tooltip-background: #000000;
   --tooltip-foreground: #ffffff;
@@ -44,6 +49,10 @@
 
     --tooltip-background: #ffffff;
     --tooltip-foreground: #000000;
+
+    --primary-light: #0b7b41;
+    --primary-color: #0a4b2c;
+    --primary-dark: #0a2b1d;
 
     --shadow-effect: 0 0 12px rgba(255, 255, 255, 0.4);
   }
