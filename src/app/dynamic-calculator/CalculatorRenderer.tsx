@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "src/components/Button";
-import { OperationType } from "./OperationCard";
 import { Divider } from "src/components/Divider";
 import { getJsonFromStore, saveAsJsonToStore } from "src/utils/localstore";
 import { CALC_STORE_SEQUENCE_KEY } from "../settings";
