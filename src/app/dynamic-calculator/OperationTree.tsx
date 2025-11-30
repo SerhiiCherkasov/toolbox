@@ -7,15 +7,19 @@ type OperationTreeProps = OperationCardProps & {
 };
 
 export const OperationTree = (props: OperationTreeProps) => {
-  const {treeInput, treeContent, operand, setOutput, treeLabel, onChange} = props
+  const { treeInput, treeContent, operand, setOutput, treeLabel, onChange } =
+    props;
   const [input, setInput] = useState(treeInput || operand || 0);
   const [inputLabel, setInputLabel] = useState<string>(treeLabel || "Input");
   const [operations, setOperations] = useState(treeContent || []);
 
-  console.log('>>>> operations ', operations);
-
   useEffect(() => {
-    onChange({...props, treeContent: operations});
+    onChange({
+      ...props,
+      treeContent: operations,
+      treeInput: input,
+      treeLabel: inputLabel,
+    });
   }, [operations]);
 
   return (

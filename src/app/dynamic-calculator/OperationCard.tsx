@@ -12,6 +12,8 @@ import {
   PercentIcon,
   TreeStructureIcon,
   DownloadSimpleIcon,
+  RadicalIcon,
+  TextSuperscriptIcon,
 } from "@phosphor-icons/react";
 import { BaseDialog } from "src/components/Dialog/BaseDialog";
 import { Tooltip } from "src/components/Tooltip";
@@ -25,6 +27,8 @@ export type OperationType =
   | "subtraction"
   | "divide"
   | "percent"
+  | "radical"
+  | "power"
   | "pass";
 
 export type OperationItem = {
@@ -71,6 +75,18 @@ export const operationList: OperationItem[] = [
     title: "Percentage",
     icon: <PercentIcon size={24} />,
     function: (input, operand = 0) => (input / 100) * operand,
+  },
+  {
+    type: "radical",
+    title: "Radical",
+    icon: <RadicalIcon size={24} />,
+    function: (input, operand = 2) => Math.pow(input, 1 / operand),
+  },
+  {
+    type: "power",
+    title: "Power",
+    icon: <TextSuperscriptIcon size={24} />,
+    function: (input, operand = 2) => Math.pow(input, operand),
   },
 ];
 
@@ -192,7 +208,7 @@ export const OperationCard = ({
       <BaseDialog
         title="Delete Operation"
         trigger={
-          <Tooltip content="Remove this operation from sequence">
+          <Tooltip content="Remove this operation from chain">
             <TrashIcon className="shrink-0 size-10 p-2 bg-[var(--background-low)] rounded-full cursor-pointer" />
           </Tooltip>
         }
@@ -202,7 +218,7 @@ export const OperationCard = ({
         actionButtonVariant="warning"
       ></BaseDialog>
       {(!treeType || treeType === "none") && (
-        <Tooltip content="Make operations as result of subsequence">
+        <Tooltip content="Make operations as result of subchain">
           <TreeStructureIcon
             className="shrink-0 size-10 p-2 bg-[var(--background-low)] rounded-full cursor-pointer"
             onClick={() => onTreeTypeChange("upper")}

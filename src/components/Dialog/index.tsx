@@ -12,10 +12,10 @@ import {
 import cn from "classnames";
 
 export const DialogRoot = Root;
-DialogRoot.displayName = 'DialogRoot';
+DialogRoot.displayName = "DialogRoot";
 
 export const DialogPortal = Portal;
-DialogPortal.displayName = 'DialogPortal';
+DialogPortal.displayName = "DialogPortal";
 
 export const DialogTrigger = forwardRef<
   HTMLButtonElement,
@@ -28,7 +28,7 @@ export const DialogTrigger = forwardRef<
     {...props}
   />
 ));
-DialogTrigger.displayName = 'DialogTrigger';
+DialogTrigger.displayName = "DialogTrigger";
 
 export const DialogOverlay = forwardRef<
   HTMLDivElement,
@@ -43,7 +43,7 @@ export const DialogOverlay = forwardRef<
     {...props}
   />
 ));
-DialogOverlay.displayName = 'DialogOverlay';
+DialogOverlay.displayName = "DialogOverlay";
 
 export const DialogContent = forwardRef<
   HTMLDivElement,
@@ -58,7 +58,7 @@ export const DialogContent = forwardRef<
     {...props}
   />
 ));
-DialogContent.displayName = 'DialogContent';
+DialogContent.displayName = "DialogContent";
 
 export const DialogTitle = forwardRef<
   HTMLHeadingElement,
@@ -70,7 +70,7 @@ export const DialogTitle = forwardRef<
     {...props}
   />
 ));
-DialogTitle.displayName = 'DialogTitle';
+DialogTitle.displayName = "DialogTitle";
 
 export const DialogDescription = forwardRef<
   HTMLParagraphElement,
@@ -85,7 +85,7 @@ export const DialogDescription = forwardRef<
     {...props}
   />
 ));
-DialogDescription.displayName = 'DialogDescription';
+DialogDescription.displayName = "DialogDescription";
 
 export const DialogClose = forwardRef<
   HTMLButtonElement,
@@ -98,4 +98,4 @@ export const DialogClose = forwardRef<
     {...props}
   />
 ));
-DialogClose.displayName = 'DialogClose';
+DialogClose.displayName = "DialogClose";

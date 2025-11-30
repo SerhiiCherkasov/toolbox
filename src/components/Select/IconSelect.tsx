@@ -58,7 +58,7 @@ export const IconSelect = ({
                   className="flex items-center gap-2"
                 >
                   {opt.icon}
-                  <div>
+                  <div className="flex items-center gap-2">
                     <SelectItemText>{opt.caption}</SelectItemText>
                     <SelectItemIndicator>…</SelectItemIndicator>
                   </div>

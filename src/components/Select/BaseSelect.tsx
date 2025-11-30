@@ -11,6 +11,7 @@ import {
   SelectViewport,
 } from ".";
 import { EditableLabel } from "src/components/typography";
+import { CheckIcon } from "@phosphor-icons/react";
 
 type BaseSelectProps = {
   label?: string;
@@ -52,9 +53,17 @@ export const BaseSelect = ({
           <SelectContent>
             <SelectViewport>
               {options.map((opt) => (
-                <SelectItem key={opt.slug} value={opt.slug}>
-                  <SelectItemText>{opt.caption}</SelectItemText>
-                  <SelectItemIndicator>…</SelectItemIndicator>
+                <SelectItem
+                  key={opt.slug}
+                  value={opt.slug}
+                  className="flex gap-2 items-center justify-between"
+                >
+                  <div className="flex gap-2 items-center">
+                    <SelectItemIndicator>
+                      <CheckIcon size={14} />
+                    </SelectItemIndicator>
+                    <SelectItemText>{opt.caption}</SelectItemText>
+                  </div>
                 </SelectItem>
               ))}
             </SelectViewport>

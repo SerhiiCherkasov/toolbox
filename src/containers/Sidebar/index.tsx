@@ -1,7 +1,7 @@
 type SidebarProps = object;
 
 export const Sidebar = (props: SidebarProps) => {
-  console.log(">>> props", props);
+  console.log(props);
 
   return (
     <>

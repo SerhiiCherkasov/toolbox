@@ -38,7 +38,6 @@ export const OperationRenderer = ({
 }: OperationRendererProps) => {
   const onOperationChange = (
     newInstance: OperationInstance) => {
-      console.log('onOperationChange ', newInstance);
       
     setOperations((previous: OperationInstance[]) =>
       previous.map((operation) => {

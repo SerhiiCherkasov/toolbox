@@ -23,6 +23,7 @@ type BaseDialogProps = DialogProps & {
   actionDisabled?: boolean;
   actionButtonVariant?: ButtonVariant;
   hideControls?: boolean;
+  closeCaption?: string;
 };
 
 export const BaseDialog = ({
@@ -35,6 +36,7 @@ export const BaseDialog = ({
   actionDisabled,
   actionButtonVariant,
   hideControls,
+  closeCaption,
   ...rest
 }: BaseDialogProps) => {
   return (
@@ -64,7 +66,7 @@ export const BaseDialog = ({
                 </DialogClose>
                 <DialogClose>
                   <Button variant="outlined" size="partial">
-                    Cancel
+                    {closeCaption || "Cancel"}
                   </Button>
                 </DialogClose>
               </div>

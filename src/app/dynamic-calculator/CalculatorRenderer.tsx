@@ -4,15 +4,17 @@ import { useEffect, useState } from "react";
 import { Button } from "src/components/Button";
 import { Divider } from "src/components/Divider";
 import { getJsonFromStore, saveAsJsonToStore } from "src/utils/localstore";
-import { CALC_STORE_SEQUENCE_KEY } from "../settings";
+import { CALC_STORE_CHAIN_KEY } from "../settings";
 import { BaseDialog } from "src/components/Dialog/BaseDialog";
 import { Input } from "src/components/Input";
-import { BaseSelect } from "src/components/Select";
 import { OperationInstance, OperationRenderer } from "./OperationRenderer";
+import { Tooltip } from "src/components/Tooltip";
+import { TrashIcon } from "@phosphor-icons/react";
+import { DialogClose } from "src/components/Dialog";
 
 type CalculatorRendererProps = object;
 
-export type StoredOperationSequence = {
+export type StoredOperationChain = {
   inputLabel?: string;
   input: number;
   operations: OperationInstance[];
@@ -23,55 +25,45 @@ export const CalculatorRenderer = ({}: CalculatorRendererProps) => {
   const [inputLabel, setInputLabel] = useState<string>("Input");
   const [operations, setOperations] = useState<OperationInstance[]>([]);
   const [storedOperations, setStoredOperations] = useState<
-    Record<string, StoredOperationSequence>
+    Record<string, StoredOperationChain>
   >({});
   const [output, setOutput] = useState(0);
-  const [sequenceName, setSequenceName] = useState("");
-  const [loadedSequenceName, setLoadedSequenceName] = useState("");
+  const [chainName, setChainName] = useState("");
 
-  const onSaveSequence = () => {
-    const storedSequences = getJsonFromStore(CALC_STORE_SEQUENCE_KEY) || {};
+  const onSaveChain = () => {
+    const storedChains = getJsonFromStore(CALC_STORE_CHAIN_KEY) || {};
 
-    saveAsJsonToStore(CALC_STORE_SEQUENCE_KEY, {
-      ...storedSequences,
-      [sequenceName]: {
+    saveAsJsonToStore(CALC_STORE_CHAIN_KEY, {
+      ...storedChains,
+      [chainName]: {
         inputLabel,
         input,
         operations,
       },
     });
-    setSequenceName("");
+    setChainName("");
   };
 
-  const onLoadSequence = (name: string) => {
-    setLoadedSequenceName(name);
+  const onLoadChain = (name: string) => {
     setOperations(storedOperations[name].operations || []);
     setInput(storedOperations[name].input || 0);
     setInputLabel(storedOperations[name].inputLabel || "Input");
   };
 
   useEffect(() => {
-    const storedSequences = getJsonFromStore(CALC_STORE_SEQUENCE_KEY) || {};
-    setStoredOperations(storedSequences);
-  }, [operations, sequenceName]);
+    const storedChains = getJsonFromStore(CALC_STORE_CHAIN_KEY) || {};
+    setStoredOperations(storedChains);
+  }, [operations, chainName]);
+
+  const onChainRemove = (key: string) => {
+    const { [key]: _, ...rest } = storedOperations;
+    console.log(_);
+    setStoredOperations(rest);
+    saveAsJsonToStore(CALC_STORE_CHAIN_KEY, rest);
+  };
 
   return (
     <div className="flex flex-col gap-4">
-      {!!Object.keys(storedOperations).length && (
-        <>
-          <BaseSelect
-            label="Saved sequences"
-            value={loadedSequenceName}
-            setValue={(value?: string) => onLoadSequence(value || "")}
-            options={Object.keys(storedOperations).map((key) => ({
-              slug: key,
-              caption: key,
-            }))}
-          />
-          <Divider />
-        </>
-      )}
-
       <OperationRenderer
         operations={operations}
         setOperations={setOperations}
@@ -83,31 +75,82 @@ export const CalculatorRenderer = ({}: CalculatorRendererProps) => {
       />
 
       <Divider />
-      {output}
+      <div>
+        <p className="text-xs leading-2">result:</p>
+        <h2 className="leading-0.5">{output}</h2>
+      </div>
       <Divider />
       <div className="flex gap-4">
         <BaseDialog
           trigger={
             <Button
-              onClick={() => setSequenceName("")}
+              onClick={() => setChainName("")}
               disabled={!operations.length}
               variant="outlined"
             >
-              Save sequence
+              Save Chain
             </Button>
           }
-          title="Save sequence"
-          description="You can save current sequence locally in your browser to reuse it in future. Please, enter a name for it."
-          action={() => onSaveSequence()}
+          title="Save Chain"
+          description="You can save current Chain locally in your browser to reuse it in future. Please, enter a name for it."
+          action={() => onSaveChain()}
           actionName="Save"
-          actionDisabled={!sequenceName}
+          actionDisabled={!chainName}
         >
           <Input
             className="px-2"
-            placeholder="Enter sequence name"
-            value={sequenceName}
-            onChange={(e) => setSequenceName(e.target.value)}
+            placeholder="Enter Chain name"
+            value={chainName}
+            onChange={(e) => setChainName(e.target.value)}
           />
+        </BaseDialog>
+        <BaseDialog
+          trigger={
+            <Button
+              disabled={!Object.keys(storedOperations).length}
+              variant="outlined"
+            >
+              Manage Chains
+            </Button>
+          }
+          title="Manage Chains"
+          actionDisabled={!chainName}
+          closeCaption="Done"
+        >
+          <div className="bg-[var(--background-hight)] rounded-2xl">
+            {!!Object.keys(storedOperations).length &&
+              Object.keys(storedOperations).map((key) => (
+                <div
+                  className="bg-[var(--background-hight)] rounded-2xl"
+                  key={key}
+                >
+                  <div className="flex w-full justify-between items-center p-4 rounded-2xl hover:bg-[var(--background-low)]">
+                    <Tooltip content={`Load chain: ${key}`}>
+                      <DialogClose>
+                        <p
+                          className="cursor-pointer"
+                          onClick={() => onLoadChain(key)}
+                        >
+                          {key}
+                        </p>
+                      </DialogClose>
+                    </Tooltip>
+                    <BaseDialog
+                      title="Delete Chain"
+                      trigger={
+                        <Tooltip content="Remove this chain from local store">
+                          <TrashIcon className="shrink-0 size-6 rounded-full cursor-pointer" />
+                        </Tooltip>
+                      }
+                      description="Are you sure you want to delete this chain from local store? This operation cannot be undone."
+                      action={() => onChainRemove(key)}
+                      actionName="Delete"
+                      actionButtonVariant="warning"
+                    ></BaseDialog>
+                  </div>
+                </div>
+              ))}
+          </div>
         </BaseDialog>
       </div>
     </div>

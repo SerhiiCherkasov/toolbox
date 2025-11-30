@@ -1,1 +1,1 @@
-export const CALC_STORE_SEQUENCE_KEY = 'calculator-sequence';
+export const CALC_STORE_CHAIN_KEY = 'calculator-sequence';

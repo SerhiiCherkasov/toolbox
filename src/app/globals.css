@@ -71,6 +71,12 @@ h1 {
   color: var(--foreground-low);
 }
 
+h2 {
+  font-size: 32px;
+  line-height: 40px;
+  color: var(--foreground);
+}
+
 .hide-number-input-arrows::-webkit-inner-spin-button,
 .hide-number-input-arrows::-webkit-outer-spin-button {
   -webkit-appearance: none;
