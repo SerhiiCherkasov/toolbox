@@ -36,13 +36,12 @@ export const OperationRenderer = ({
   operations = [],
   setOperations,
 }: OperationRendererProps) => {
-  const onOperationChange = (
-    newInstance: OperationInstance) => {
-      
+  const onOperationChange = (newInstance: OperationInstance) => {
     setOperations((previous: OperationInstance[]) =>
       previous.map((operation) => {
         if (operation.id === newInstance.id) {
-          const {id, label, operand, treeContent, treeType, treeInput, type} = newInstance;
+          const { id, label, operand, treeContent, treeType, treeInput, type } =
+            newInstance;
           return { id, label, operand, treeContent, treeType, treeInput, type };
         }
         return operation;
@@ -95,9 +94,7 @@ export const OperationRenderer = ({
           {...operation}
         />
       ))}
-      <Button onClick={onAddOperation} disabled={!input}>
-        Add operation
-      </Button>
+      <Button onClick={onAddOperation}>Add operation</Button>
     </div>
   );
 };

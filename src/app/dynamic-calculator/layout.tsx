@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Sidebar } from "src/containers/Sidebar";
 
 export const metadata: Metadata = {
-  title: "Dynamic Calculator",
+  title: "DCC",
   description: "Use it to simplify complex calculations",
 };
 

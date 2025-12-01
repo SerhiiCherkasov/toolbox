@@ -9,6 +9,8 @@
   --foreground: #171717;
   --foreground-hight: #000000;
 
+  --border-base: #888888;
+
   --primary-light: #26965c;
   --primary-color: #226b48;
   --primary-dark: #204737;
@@ -55,7 +57,7 @@
     --primary-color: #0a4b2c;
     --primary-dark: #0a2b1d;
 
-    --shadow-effect: 0 0 12px rgba(255, 255, 255, 0.4);
+    --shadow-effect: 0 6px 8px rgba(0, 0, 0, 0.5);
   }
 }
 

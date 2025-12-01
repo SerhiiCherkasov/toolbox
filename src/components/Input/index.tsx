@@ -26,7 +26,7 @@ export const Input = forwardRef<HTMLInputElement, inputProps>(
         )}
         <div
           className={cn(
-            "bg-[var(--background-low)] p-1.5 rounded-lg border border-[var(--foreground-low)]",
+            "bg-[var(--background-low)] p-1.5 rounded-lg border border-[var(--border-base)]",
             wrapperClassName
           )}
         >

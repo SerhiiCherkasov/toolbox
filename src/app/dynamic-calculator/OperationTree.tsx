@@ -23,7 +23,7 @@ export const OperationTree = (props: OperationTreeProps) => {
   }, [operations]);
 
   return (
-    <div className="p-4 border border-[var(--foreground)] rounded-md">
+    <div className="p-4 border border-[var(--border-base)] rounded-t-xl rounded-r-xl">
       <OperationRenderer
         operations={operations}
         setOperations={setOperations}

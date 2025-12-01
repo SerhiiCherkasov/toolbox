@@ -52,7 +52,7 @@ export const DialogContent = forwardRef<
   <Content
     ref={ref}
     className={cn(
-      "fixed left-[50%] top-[50%] z-40 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 bg-[var(--background)] border border-[var(--foreground-low)] p-4 rounded-2xl shadow-[var(--shadow-effect)]",
+      "fixed left-[50%] top-[50%] z-40 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 bg-[var(--background)] border border-[var(--border-base)] p-4 rounded-2xl shadow-[var(--shadow-effect)]",
       props.className
     )}
     {...props}

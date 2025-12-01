@@ -8,8 +8,7 @@ import { CALC_STORE_CHAIN_KEY } from "../settings";
 import { BaseDialog } from "src/components/Dialog/BaseDialog";
 import { Input } from "src/components/Input";
 import { OperationInstance, OperationRenderer } from "./OperationRenderer";
-import { Tooltip } from "src/components/Tooltip";
-import { TrashIcon } from "@phosphor-icons/react";
+import { UploadIcon, TrashIcon } from "@phosphor-icons/react";
 import { DialogClose } from "src/components/Dialog";
 
 type CalculatorRendererProps = object;
@@ -45,6 +44,8 @@ export const CalculatorRenderer = ({}: CalculatorRendererProps) => {
   };
 
   const onLoadChain = (name: string) => {
+    console.log(">>>>> name to load:", name);
+
     setOperations(storedOperations[name].operations || []);
     setInput(storedOperations[name].input || 0);
     setInputLabel(storedOperations[name].inputLabel || "Input");
@@ -117,36 +118,34 @@ export const CalculatorRenderer = ({}: CalculatorRendererProps) => {
           actionDisabled={!chainName}
           closeCaption="Done"
         >
-          <div className="bg-[var(--background-hight)] rounded-2xl">
+          <div className="bg-[var(--background-hight)] rounded-2xl overflow-hidden">
             {!!Object.keys(storedOperations).length &&
               Object.keys(storedOperations).map((key) => (
                 <div
                   className="bg-[var(--background-hight)] rounded-2xl"
                   key={key}
                 >
-                  <div className="flex w-full justify-between items-center p-4 rounded-2xl hover:bg-[var(--background-low)]">
-                    <Tooltip content={`Load chain: ${key}`}>
+                  <div className="flex w-full justify-between items-center p-4 hover:bg-[var(--background-low)]">
+                    <p>{key}</p>
+                    <div className="flex gap-1">
                       <DialogClose>
-                        <p
-                          className="cursor-pointer"
+                        <UploadIcon
+                          className="shrink-0 size-6 rounded-full cursor-pointer mr-2"
                           onClick={() => onLoadChain(key)}
-                        >
-                          {key}
-                        </p>
+                        />
                       </DialogClose>
-                    </Tooltip>
-                    <BaseDialog
-                      title="Delete Chain"
-                      trigger={
-                        <Tooltip content="Remove this chain from local store">
+
+                      <BaseDialog
+                        title="Delete Chain"
+                        trigger={
                           <TrashIcon className="shrink-0 size-6 rounded-full cursor-pointer" />
-                        </Tooltip>
-                      }
-                      description="Are you sure you want to delete this chain from local store? This operation cannot be undone."
-                      action={() => onChainRemove(key)}
-                      actionName="Delete"
-                      actionButtonVariant="warning"
-                    ></BaseDialog>
+                        }
+                        description="Are you sure you want to delete this chain from local store? This operation cannot be undone."
+                        action={() => onChainRemove(key)}
+                        actionName="Delete"
+                        actionButtonVariant="warning"
+                      ></BaseDialog>
+                    </div>
                   </div>
                 </div>
               ))}

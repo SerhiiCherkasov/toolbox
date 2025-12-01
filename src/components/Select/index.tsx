@@ -18,7 +18,7 @@ export const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "w-full flex items-center justify-between gap-4 bg-[var(--background-low)] px-4 py-1.5 rounded-lg border border-[var(--foreground-low)]",
+      "w-full flex items-center justify-between gap-4 bg-[var(--background-low)] px-4 py-1.5 rounded-lg border border-[var(--border-base)]",
       className
     )}
     {...props}

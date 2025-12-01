@@ -1,9 +1,9 @@
 import { IconSelect } from "src/components/Select";
 import { OperationInstance } from "./OperationRenderer";
 import { NumberInput } from "src/components/Input/NumberInput";
-import { TrashIcon } from "@radix-ui/react-icons";
 
 import {
+  TrashIcon,
   MathOperationsIcon,
   PlusIcon,
   XIcon,
@@ -166,7 +166,7 @@ export const OperationCard = ({
     });
   };
 
-  const error = type === "divide" && operand === 0;
+  const error = type === "divide" && currentValue === 0;
 
   useEffect(() => {
     setCurrentValue(operand);
