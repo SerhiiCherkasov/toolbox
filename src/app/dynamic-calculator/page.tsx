@@ -21,8 +21,10 @@ export default function DynamicCalculator() {
           change one or more values in the chain - you can do it without
           necessity to repeat all other operations.
         </p>
+        <p>Any chain can be saved to use it in the future.</p>
         <p>
-          Any chain can be saved to use it in the future. All data are stored locally in your browser. We are not collecting any user information.
+          IMPORTANT! All data are stored locally in your browser. We are not
+          collecting any user information.
         </p>
       </div>
       <section>

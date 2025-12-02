@@ -44,8 +44,6 @@ export const CalculatorRenderer = ({}: CalculatorRendererProps) => {
   };
 
   const onLoadChain = (name: string) => {
-    console.log(">>>>> name to load:", name);
-
     setOperations(storedOperations[name].operations || []);
     setInput(storedOperations[name].input || 0);
     setInputLabel(storedOperations[name].inputLabel || "Input");
@@ -88,6 +86,7 @@ export const CalculatorRenderer = ({}: CalculatorRendererProps) => {
               onClick={() => setChainName("")}
               disabled={!operations.length}
               variant="outlined"
+              className="max-w-[370px]"
             >
               Save Chain
             </Button>
@@ -110,6 +109,7 @@ export const CalculatorRenderer = ({}: CalculatorRendererProps) => {
             <Button
               disabled={!Object.keys(storedOperations).length}
               variant="outlined"
+              className="max-w-[370px]"
             >
               Manage Chains
             </Button>

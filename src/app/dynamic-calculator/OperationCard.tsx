@@ -190,33 +190,37 @@ export const OperationCard = ({
   }, [currentValue]);
 
   return (
-    <div className="flex items-end gap-4">
-      <IconSelect
-        value={type}
-        setValue={(value?: string) => onTypeChange(value as OperationType)}
-        options={operationOptions}
-      />
+    <div className={classNames({ "pl-13.5": !id }, "flex items-end gap-4")}>
+      {!!id && (
+        <IconSelect
+          value={type}
+          setValue={(value?: string) => onTypeChange(value as OperationType)}
+          options={operationOptions}
+        />
+      )}
       <NumberInput
         value={currentValue}
         onChange={(e) => setCurrentValue(+e.target.value)}
         label={label}
         editableLabel={true}
         onLabelEdit={onLabelChange}
-        wrapperClassName={classNames({ "bg-[var(--error-dark)]": error })}
+        wrapperClassName={classNames({ "bg-[var(--error-dark)]": error})}
         disabled={treeType && treeType !== "none"}
       />
-      <BaseDialog
-        title="Delete Operation"
-        trigger={
-          <Tooltip content="Remove this operation from chain">
-            <TrashIcon className="shrink-0 size-10 p-2 bg-[var(--background-low)] rounded-full cursor-pointer" />
-          </Tooltip>
-        }
-        description="Are you sure you want to delete this operation?"
-        action={() => onRemove(id)}
-        actionName="Delete"
-        actionButtonVariant="warning"
-      ></BaseDialog>
+      {!!id && (
+        <BaseDialog
+          title="Delete Operation"
+          trigger={
+            <Tooltip content="Remove this operation from chain">
+              <TrashIcon className="shrink-0 size-10 p-2 bg-[var(--background-low)] rounded-full cursor-pointer" />
+            </Tooltip>
+          }
+          description="Are you sure you want to delete this operation?"
+          action={() => onRemove(id)}
+          actionName="Delete"
+          actionButtonVariant="warning"
+        ></BaseDialog>
+      )}
       {(!treeType || treeType === "none") && (
         <Tooltip content="Make operations as result of subchain">
           <TreeStructureIcon

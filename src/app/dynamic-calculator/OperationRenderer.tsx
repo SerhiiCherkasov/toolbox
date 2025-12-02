@@ -1,9 +1,8 @@
 "use client";
 
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "src/components/Button";
 import { operationList, OperationType } from "./OperationCard";
-import { NumberInput } from "src/components/Input/NumberInput";
 import { OperationBlock, TreeType } from "./OperationBlock";
 
 type OperationRendererProps = {
@@ -36,6 +35,7 @@ export const OperationRenderer = ({
   operations = [],
   setOperations,
 }: OperationRendererProps) => {
+  const [initTreeType, setInitTreeType] = useState<TreeType>("none");
   const onOperationChange = (newInstance: OperationInstance) => {
     setOperations((previous: OperationInstance[]) =>
       previous.map((operation) => {
@@ -60,6 +60,12 @@ export const OperationRenderer = ({
     ]);
   };
 
+  const onInitInputChange = (newInstance: Partial<OperationInstance>) => {
+    setInput(newInstance?.operand || 0);
+    setInputLabel(newInstance.label || "Input");
+    setInitTreeType(newInstance.treeType || "none");
+  };
+
   useEffect(() => {
     const result = operations.reduce((acc, operation) => {
       const opFunction = operationList.find(
@@ -78,12 +84,14 @@ export const OperationRenderer = ({
 
   return (
     <div className="animate-fade-right animate-duration-300 animate-ease-in-out flex flex-col gap-4">
-      <NumberInput
-        editableLabel={true}
-        value={input}
-        onChange={(e) => setInput(+e.target.value)}
+      <OperationBlock
+        id={0}
+        type="pass"
+        onChange={onInitInputChange}
+        operand={input}
         label={inputLabel}
-        onLabelEdit={setInputLabel}
+        onRemove={() => null}
+        treeType={initTreeType}
       />
       {operations.map((operation, index) => (
         <OperationBlock
@@ -94,7 +102,9 @@ export const OperationRenderer = ({
           {...operation}
         />
       ))}
-      <Button onClick={onAddOperation}>Add operation</Button>
+      <Button onClick={onAddOperation} className="max-w-[370px]">
+        Add operation
+      </Button>
     </div>
   );
 };
