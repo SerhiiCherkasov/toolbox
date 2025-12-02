@@ -4,6 +4,8 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "src/components/Button";
 import { operationList, OperationType } from "./OperationCard";
 import { OperationBlock, TreeType } from "./OperationBlock";
+import { PlusCircleIcon } from "@phosphor-icons/react";
+import { Tooltip } from "src/components/Tooltip";
 
 type OperationRendererProps = {
   setOutput: Dispatch<number>;
@@ -102,9 +104,18 @@ export const OperationRenderer = ({
           {...operation}
         />
       ))}
-      <Button onClick={onAddOperation} className="max-w-[370px]">
-        Add operation
-      </Button>
+
+      <Button
+        onClick={onAddOperation}
+        className="p-1"
+        variant="icon"
+        size="fit"
+        icon={
+          <Tooltip content="Add operation" className="w-fit">
+            <PlusCircleIcon size={32} className="cursor-pointer" />
+          </Tooltip>
+        }
+      ></Button>
     </div>
   );
 };

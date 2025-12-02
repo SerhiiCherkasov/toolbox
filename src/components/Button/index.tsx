@@ -1,12 +1,13 @@
-import * as React from "react";
+import { ReactNode, ButtonHTMLAttributes } from "react";
 import { cn } from "src/utils";
 
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
+  icon?: ReactNode;
 };
 
-export type ButtonVariant = "base" | "outlined" | "warning";
+export type ButtonVariant = "base" | "outlined" | "warning" | "icon";
 
 export type ButtonSize = "full" | "partial" | "fit";
 
@@ -15,6 +16,7 @@ const variants: Record<ButtonVariant, string> = {
   outlined:
     "bg-transparent border border-[var(--foreground-low)] text-[var(--foreground-hight)]",
   warning: "bg-[var(--error-color)] text-white",
+  icon: "p-2 bg-[var(--primary-color)] text-[var(--foreground)] rounded-full",
 };
 
 const sizes: Record<ButtonSize, string> = {
@@ -28,6 +30,7 @@ export const Button = ({
   size = "full",
   className,
   children,
+  icon,
   ...rest
 }: ButtonProps) => {
   return (
@@ -41,6 +44,7 @@ export const Button = ({
         className
       )}
     >
+      {icon}
       {children}
     </button>
   );
