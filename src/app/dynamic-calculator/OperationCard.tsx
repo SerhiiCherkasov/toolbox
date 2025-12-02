@@ -222,7 +222,7 @@ export const OperationCard = ({
         ></BaseDialog>
       )}
       {(!treeType || treeType === "none") && (
-        <Tooltip content="Make operations as result of subchain">
+        <Tooltip content="Make operation as result of subchain">
           <TreeStructureIcon
             className="shrink-0 size-10 p-2 bg-[var(--background-low)] rounded-full cursor-pointer"
             onClick={() => onTreeTypeChange("upper")}
@@ -230,7 +230,7 @@ export const OperationCard = ({
         </Tooltip>
       )}
       {treeType === "upper" && (
-        <Tooltip content="Make operations as direct input">
+        <Tooltip content="Make operation as direct input">
           <DownloadSimpleIcon
             className="shrink-0 size-10 p-2 bg-[var(--background-low)] rounded-full cursor-pointer"
             onClick={() => onTreeTypeChange("none")}

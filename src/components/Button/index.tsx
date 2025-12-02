@@ -16,7 +16,7 @@ const variants: Record<ButtonVariant, string> = {
   outlined:
     "bg-transparent border border-[var(--foreground-low)] text-[var(--foreground-hight)]",
   warning: "bg-[var(--error-color)] text-white",
-  icon: "p-2 bg-[var(--primary-color)] text-[var(--foreground)] rounded-full",
+  icon: "p-2 bg-[var(--primary-color)] text-white rounded-full",
 };
 
 const sizes: Record<ButtonSize, string> = {
