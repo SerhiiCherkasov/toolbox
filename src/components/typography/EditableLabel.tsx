@@ -22,10 +22,22 @@ export const EditableLabel = ({
   const [editLabel, setEdit] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const trackCloseEditOnEnter = (e: KeyboardEvent) => {
+    if (e.key === "Enter") {
+      setEdit(false);
+    }
+  };
+
   useEffect(() => {
     if (editLabel) {
       inputRef.current?.focus();
+      window.addEventListener("keydown", trackCloseEditOnEnter);
+    } else {
+      window.removeEventListener("keydown", trackCloseEditOnEnter);
     }
+    return () => {
+      window.removeEventListener("keydown", trackCloseEditOnEnter);
+    };
   }, [editLabel]);
 
   useEffect(() => {

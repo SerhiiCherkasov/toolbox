@@ -64,7 +64,7 @@ export const OperationRenderer = ({
 
   const onInitInputChange = (newInstance: Partial<OperationInstance>) => {
     setInput(newInstance?.operand || 0);
-    setInputLabel(newInstance.label || "Input");
+    setInputLabel(newInstance.label || "");
     setInitTreeType(newInstance.treeType || "none");
   };
 
