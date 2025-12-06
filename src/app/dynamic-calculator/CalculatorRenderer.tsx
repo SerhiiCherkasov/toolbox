@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "src/components/Button";
 import { Divider } from "src/components/Divider";
 import { getJsonFromStore, saveAsJsonToStore } from "src/utils/localstore";
-import { CALC_STORE_CHAIN_KEY } from "../settings";
+import { CALC_STORE_CHAIN_KEY } from "src/settings";
 import { BaseDialog } from "src/components/Dialog/BaseDialog";
 import { Input } from "src/components/Input";
 import { OperationInstance, OperationRenderer } from "./OperationRenderer";
