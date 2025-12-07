@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Button } from "src/components/Button";
-import { operationList, OperationType } from "./OperationCard";
+import { initOperationList, operationList, OperationType } from "./OperationCard";
 import { OperationBlock, TreeType } from "./OperationBlock";
 import { PlusCircleIcon } from "@phosphor-icons/react";
 import { Tooltip } from "src/components/Tooltip";
@@ -19,7 +19,7 @@ type OperationRendererProps = {
 
 export type OperationInstance = {
   id: number;
-  type: OperationType;
+  slug: OperationType;
   operand: number;
   label?: string;
   treeType?: TreeType;
@@ -38,13 +38,14 @@ export const OperationRenderer = ({
   setOperations,
 }: OperationRendererProps) => {
   const [initTreeType, setInitTreeType] = useState<TreeType>("none");
+  const [initInputType, setInitInputType] = useState<OperationType>("pass");
   const onOperationChange = (newInstance: OperationInstance) => {
     setOperations((previous: OperationInstance[]) =>
       previous.map((operation) => {
         if (operation.id === newInstance.id) {
-          const { id, label, operand, treeContent, treeType, treeInput, type } =
+          const { id, label, operand, treeContent, treeType, treeInput, slug } =
             newInstance;
-          return { id, label, operand, treeContent, treeType, treeInput, type };
+          return { id, label, operand, treeContent, treeType, treeInput, slug };
         }
         return operation;
       })
@@ -58,20 +59,26 @@ export const OperationRenderer = ({
   const onAddOperation = () => {
     setOperations((previous) => [
       ...previous,
-      { id: Date.now(), type: "pass", operand: 0 },
+      { id: Date.now(), slug: "pass", operand: 0 },
     ]);
   };
 
   const onInitInputChange = (newInstance: Partial<OperationInstance>) => {
-    setInput(newInstance?.operand || 0);
+    const func = initOperationList.find(
+      (op) => op.slug === newInstance?.slug
+    )?.function;
+    const newOperand = func ? func(input, newInstance?.operand || 0) : newInstance?.operand || 0;
+    
+    setInput(newOperand);
     setInputLabel(newInstance.label || "");
     setInitTreeType(newInstance.treeType || "none");
+    setInitInputType(newInstance.slug || "pass");
   };
 
   useEffect(() => {
     const result = operations.reduce((acc, operation) => {
       const opFunction = operationList.find(
-        (op) => op.type === operation.type
+        (op) => op.slug === operation.slug
       )?.function;
 
       if (opFunction) {
@@ -82,13 +89,13 @@ export const OperationRenderer = ({
     }, input);
 
     setOutput(result);
-  }, [input, operations]);
+  }, [input, operations, initInputType]);
 
   return (
     <div className="animate-fade-right animate-duration-300 animate-ease-in-out flex flex-col gap-4">
       <OperationBlock
         id={0}
-        type="pass"
+        slug={initInputType}
         onChange={onInitInputChange}
         operand={input}
         label={inputLabel}
@@ -100,7 +107,7 @@ export const OperationRenderer = ({
           key={operation.id}
           onChange={onOperationChange}
           onRemove={onRemoveOperation}
-          label={`operation #${index + 1}`} // initial default value
+          label={`operation #${index + 1}`}
           {...operation}
         />
       ))}

@@ -29,64 +29,112 @@ export type OperationType =
   | "percent"
   | "radical"
   | "power"
+  | "sin"
+  | "cos"
+  | "tan"
   | "pass";
 
 export type OperationItem = {
   label?: string;
-  type: OperationType;
-  title: string;
+  slug: OperationType;
+  caption: string;
   function: (input: number, operand?: number) => number;
   icon: React.ReactNode;
 };
 
 export const operationList: OperationItem[] = [
   {
-    type: "pass",
-    title: "Pass",
+    slug: "pass",
+    caption: "Pass",
     icon: <MathOperationsIcon size={24} />,
     function: (input) => input,
   },
   {
-    type: "add",
-    title: "Add",
+    slug: "add",
+    caption: "Add",
     icon: <PlusIcon size={24} />,
     function: (input, operand = 0) => input + operand,
   },
   {
-    type: "multiply",
-    title: "Multiply",
+    slug: "multiply",
+    caption: "Multiply",
     icon: <XIcon size={24} />,
     function: (input, operand = 0) => input * operand,
   },
   {
-    type: "divide",
-    title: "Divide",
+    slug: "divide",
+    caption: "Divide",
     icon: <DivideIcon size={24} />,
     function: (input, operand = 0) => input / operand,
   },
   {
-    type: "subtraction",
-    title: "Subtraction",
+    slug: "subtraction",
+    caption: "Subtraction",
     icon: <MinusIcon size={24} />,
     function: (input, operand = 0) => input - operand,
   },
   {
-    type: "percent",
-    title: "Percentage",
+    slug: "percent",
+    caption: "Percentage",
     icon: <PercentIcon size={24} />,
     function: (input, operand = 0) => (input / 100) * operand,
   },
   {
-    type: "radical",
-    title: "Radical",
+    slug: "radical",
+    caption: "Radical",
     icon: <RadicalIcon size={24} />,
     function: (input, operand = 2) => Math.pow(input, 1 / operand),
   },
   {
-    type: "power",
-    title: "Power",
+    slug: "power",
+    caption: "Power",
     icon: <TextSuperscriptIcon size={24} />,
     function: (input, operand = 2) => Math.pow(input, operand),
+  },
+];
+
+export const initOperationList: OperationItem[] = [
+  {
+    slug: "pass",
+    caption: "Pass",
+    icon: <div className="w-6 h-6"></div>,
+    function: (_, operand) => operand || 0,
+  },
+  {
+    slug: "sin",
+    caption: "Sine",
+    icon: (
+      <div className="w-6 h-6">
+        <p>
+          <i>sin</i>
+        </p>
+      </div>
+    ),
+    function: (_, operand = 2) => Math.sin(operand * (Math.PI / 180)),
+  },
+  {
+    slug: "cos",
+    caption: "Cosine",
+    icon: (
+      <div className="w-6 h-6">
+        <p>
+          <i>cos</i>
+        </p>
+      </div>
+    ),
+    function: (_, operand = 2) => Math.cos(operand * (Math.PI / 180)),
+  },
+  {
+    slug: "tan",
+    caption: "Tangent ",
+    icon: (
+      <div className="w-6 h-6">
+        <p>
+          <i>tan</i>
+        </p>
+      </div>
+    ),
+    function: (_, operand = 2) => Math.tan(operand * (Math.PI / 180)),
   },
 ];
 
@@ -95,16 +143,10 @@ export type OperationCardProps = OperationInstance & {
   onRemove: (id: number) => void;
 };
 
-const operationOptions = operationList.map((opt) => ({
-  slug: opt.type,
-  caption: opt.title,
-  icon: opt.icon,
-}));
-
 export const OperationCard = ({
   id,
   label,
-  type,
+  slug,
   operand,
   onChange,
   onRemove,
@@ -114,10 +156,10 @@ export const OperationCard = ({
   treeLabel,
 }: OperationCardProps) => {
   const [currentValue, setCurrentValue] = useState(operand);
-  const onTypeChange = (newType: OperationType) => {
+  const onTypeChange = (newSlug: OperationType) => {
     onChange({
       id,
-      type: newType,
+      slug: newSlug,
       operand: currentValue,
       label,
       treeType,
@@ -130,7 +172,7 @@ export const OperationCard = ({
   const onOperandChange = (newOperand: number) => {
     onChange({
       id,
-      type,
+      slug,
       operand: newOperand,
       label,
       treeType,
@@ -143,7 +185,7 @@ export const OperationCard = ({
   const onLabelChange = (newLabel: string) => {
     onChange({
       id,
-      type,
+      slug,
       operand: currentValue,
       label: newLabel,
       treeType,
@@ -156,7 +198,7 @@ export const OperationCard = ({
   const onTreeTypeChange = (newType: TreeType) => {
     onChange({
       id,
-      type,
+      slug,
       operand: currentValue,
       label,
       treeType: newType,
@@ -166,7 +208,7 @@ export const OperationCard = ({
     });
   };
 
-  const error = type === "divide" && currentValue === 0;
+  const error = slug === "divide" && currentValue === 0;
 
   useEffect(() => {
     setCurrentValue(operand);
@@ -174,7 +216,7 @@ export const OperationCard = ({
 
     onChange({
       id,
-      type,
+      slug,
       operand,
       label,
       treeType,
@@ -190,21 +232,20 @@ export const OperationCard = ({
   }, [currentValue]);
 
   return (
-    <div className={classNames({ "pl-13.5": !id }, "flex items-end gap-4")}>
-      {!!id && (
-        <IconSelect
-          value={type}
-          setValue={(value?: string) => onTypeChange(value as OperationType)}
-          options={operationOptions}
-        />
-      )}
+    <div className={classNames("flex items-end gap-4")}>
+      <IconSelect
+        value={slug}
+        setValue={(value?: string) => onTypeChange(value as OperationType)}
+        options={id ? operationList : initOperationList}
+      />
+
       <NumberInput
         value={currentValue}
         onChange={(e) => setCurrentValue(+e.target.value)}
         label={label}
         editableLabel={true}
         onLabelEdit={onLabelChange}
-        wrapperClassName={classNames({ "bg-[var(--error-dark)]": error})}
+        wrapperClassName={classNames({ "bg-[var(--error-dark)]": error })}
         disabled={treeType && treeType !== "none"}
       />
       {!!id && (
