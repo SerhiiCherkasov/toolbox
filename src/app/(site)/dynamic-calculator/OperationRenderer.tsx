@@ -23,7 +23,7 @@ export type OperationInstance = {
   operand: number;
   label?: string;
   treeType?: TreeType;
-  treeContent?: OperationInstance[];
+  operations?: OperationInstance[];
   treeInput?: number;
   treeLabel?: string;
 };
@@ -43,9 +43,9 @@ export const OperationRenderer = ({
     setOperations((previous: OperationInstance[]) =>
       previous.map((operation) => {
         if (operation.id === newInstance.id) {
-          const { id, label, operand, treeContent, treeType, treeInput, slug } =
+          const { id, label, operand, operations: treeContent, treeType, treeInput, slug } =
             newInstance;
-          return { id, label, operand, treeContent, treeType, treeInput, slug };
+          return { id, label, operand, operations: treeContent, treeType, treeInput, slug };
         }
         return operation;
       })
@@ -64,6 +64,8 @@ export const OperationRenderer = ({
   };
 
   const onInitInputChange = (newInstance: Partial<OperationInstance>) => {
+    console.log('>>> newInstance ', newInstance);
+    
     const func = initOperationList.find(
       (op) => op.slug === newInstance?.slug
     )?.function;

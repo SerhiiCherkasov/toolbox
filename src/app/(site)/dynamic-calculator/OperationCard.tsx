@@ -151,7 +151,7 @@ export const OperationCard = ({
   onChange,
   onRemove,
   treeType,
-  treeContent,
+  operations: treeContent,
   treeInput,
   treeLabel,
 }: OperationCardProps) => {
@@ -163,7 +163,7 @@ export const OperationCard = ({
       operand: currentValue,
       label,
       treeType,
-      treeContent,
+      operations: treeContent,
       treeInput,
       treeLabel,
     });
@@ -176,7 +176,7 @@ export const OperationCard = ({
       operand: newOperand,
       label,
       treeType,
-      treeContent,
+      operations: treeContent,
       treeInput,
       treeLabel,
     });
@@ -189,7 +189,7 @@ export const OperationCard = ({
       operand: currentValue,
       label: newLabel,
       treeType,
-      treeContent,
+      operations: treeContent,
       treeInput,
       treeLabel,
     });
@@ -202,7 +202,7 @@ export const OperationCard = ({
       operand: currentValue,
       label,
       treeType: newType,
-      treeContent,
+      operations: treeContent,
       treeInput,
       treeLabel,
     });
@@ -220,7 +220,7 @@ export const OperationCard = ({
       operand,
       label,
       treeType,
-      treeContent,
+      operations: treeContent,
       treeInput,
       treeLabel,
     });
