@@ -1,9 +1,25 @@
 import type { Metadata } from "next";
-import { Sidebar } from "src/containers/Sidebar";
 
 export const metadata: Metadata = {
   title: "DCC",
   description: "Use it to simplify complex calculations",
+  icons: {
+    icon: [
+      {
+        url: "/favicon-light.svg",
+        type: "image/svg+xml",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/favicon-dark.svg",
+        type: "image/svg+xml",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
+  },
+  other: {
+    "color-scheme": "light dark",
+  },
 };
 
 export default function RootLayout({
@@ -11,10 +27,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      <Sidebar />
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }
