@@ -5,10 +5,10 @@ type UserWrapperProps = {
 export const UserWrapper = ({ children }: UserWrapperProps) => {
   return (
     <div className="flex w-full h-full">
-      <aside className="sticky top-0 h-[100vh] p-4 bg-[var(--background-low)]">
+      {/* <aside className="sticky top-0 h-[100vh] p-4 bg-[var(--background-low)]">
         {" "}
         USER wrapper
-      </aside>
+      </aside> */}
       {children}
     </div>
   );

@@ -1,4 +1,3 @@
-// import { CalculatorRenderer } from "./CalculatorRenderer";
 "use client";
 
 import { useEffect, useState } from "react";
@@ -53,18 +52,19 @@ export default function DynamicCalculator() {
   const [output, setOutput] = useState(0);
   const [chainName, setChainName] = useState("My calculations");
   const [storedChainsState, setStoredChainsState] = useState<StoredChains>({});
-  console.log(">>>>> chain ", chain);
 
   const onSaveChain = () => {
     const storedChains = getParsedJsonFromStore(CALC_STORE_CHAIN_KEY) || {};
-
-    saveAsJsonToStore(CALC_STORE_CHAIN_KEY, {
+    const joinedChains = {
       ...storedChains,
       [chainName]: chain,
-    });
+    };
+    saveAsJsonToStore(CALC_STORE_CHAIN_KEY, joinedChains);
+    setStoredChainsState(joinedChains);
   };
 
   const onLoadChain = (name: string) => {
+    setChainName(name);
     setChain(storedChainsState[name] || []);
   };
 
@@ -84,7 +84,7 @@ export default function DynamicCalculator() {
     <main className="flex flex-col p-8 gap-8">
       <section>
         <header>
-          <h1>Dynamic Chain Calculator</h1>
+          <h1 className="mb-10">Dynamic Chain Calculator</h1>
         </header>
         <div className="flex flex-col gap-4 max-w-[550px]">
           <p>
@@ -108,9 +108,23 @@ export default function DynamicCalculator() {
           </p>
         </div>
       </section>
+      <Divider />
       <section>
         <header className="mb-4">
-          <h2>{chainName}</h2>
+          <BaseDialog
+            trigger={
+              <h2 className="cursor-pointer hover:opacity-90">{chainName}</h2>
+            }
+            title="Set Chain name"
+            closeCaption="Ok"
+          >
+            <Input
+              className="px-2"
+              placeholder="Enter Chain name"
+              value={chainName}
+              onChange={(e) => setChainName(e.target.value)}
+            />
+          </BaseDialog>
         </header>
         <ChainRenderer
           chain={chain}

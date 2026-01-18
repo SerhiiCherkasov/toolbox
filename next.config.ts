@@ -7,7 +7,12 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/',
-        destination: '/dynamic-calculator',
+        destination: '/dcc',
+        permanent: true,
+      },
+      {
+        source: '/dynamic-calculator',
+        destination: '/dcc',
         permanent: true,
       },
     ]
