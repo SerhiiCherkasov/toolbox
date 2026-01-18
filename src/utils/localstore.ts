@@ -4,7 +4,7 @@ export const getFromStore = (key: string) => {
   return localStorage.getItem(key)
 }
 
-export const getJsonFromStore = (key: string) => {
+export const getParsedJsonFromStore = (key: string) => {
   try {
     return JSON.parse(getFromStore(key) || '')
   } catch {

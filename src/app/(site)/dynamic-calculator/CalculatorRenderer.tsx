@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "src/components/Button";
 import { Divider } from "src/components/Divider";
-import { getJsonFromStore, saveAsJsonToStore } from "src/utils/localstore";
+import { getParsedJsonFromStore, saveAsJsonToStore } from "src/utils/localstore";
 import { CALC_STORE_CHAIN_KEY } from "src/settings";
 import { BaseDialog } from "src/components/Dialog/BaseDialog";
 import { Input } from "src/components/Input";
@@ -23,14 +23,12 @@ export const CalculatorRenderer = ({}: CalculatorRendererProps) => {
   const [input, setInput] = useState<number>(0);
   const [inputLabel, setInputLabel] = useState<string>("Input");
   const [operations, setOperations] = useState<OperationInstance[]>([]);
-  const [storedOperations, setStoredOperations] = useState<
-    Record<string, StoredOperationChain>
-  >({});
+  const [storedOperations, setStoredOperations] = useState<Record<string, StoredOperationChain>>({});
   const [output, setOutput] = useState(0);
   const [chainName, setChainName] = useState("");
 
   const onSaveChain = () => {
-    const storedChains = getJsonFromStore(CALC_STORE_CHAIN_KEY) || {};
+    const storedChains = getParsedJsonFromStore(CALC_STORE_CHAIN_KEY) || {};
 
     saveAsJsonToStore(CALC_STORE_CHAIN_KEY, {
       ...storedChains,
@@ -50,7 +48,7 @@ export const CalculatorRenderer = ({}: CalculatorRendererProps) => {
   };
 
   useEffect(() => {
-    const storedChains = getJsonFromStore(CALC_STORE_CHAIN_KEY) || {};
+    const storedChains = getParsedJsonFromStore(CALC_STORE_CHAIN_KEY) || {};
     setStoredOperations(storedChains);
   }, [operations, chainName]);
 
